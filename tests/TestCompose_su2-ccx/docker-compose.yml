@@ -1,7 +1,7 @@
 version : '3'
 services:
   calculix-adapter:
-    image: "${SYSTEST_REMOTE}calculix-adapter${PRECICE_BASE}:${CALCULIX_TAG}"
+    image: "benjaminrueth/calculix-adapter${PRECICE_BASE}:${CALCULIX_TAG}"
     networks:
       - precicecomm
     volumes:
@@ -19,7 +19,7 @@ services:
     - tutorial-data
 
   su2-adapter:
-    image: "${SYSTEST_REMOTE}su2-adapter${PRECICE_BASE}:${SU2_TAG}"
+    image: "benjaminrueth/su2-adapter${PRECICE_BASE}:${SU2_TAG}"
     networks:
       - precicecomm
     volumes:
