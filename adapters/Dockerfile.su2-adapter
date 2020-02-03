@@ -26,7 +26,7 @@ ENV SU2_HOME="/home/precice/su2-source" \
 
 ARG branch=develop
 RUN cd /home/precice && \
-    git clone https://github.com/precice/su2-adapter.git && cd su2-adapter && git checkout e8f7f22f56cb7516119ee9a01a0aab36ea83a5d3 &&  \
+    git clone https://github.com/precice/su2-adapter.git && cd su2-adapter && git checkout e8f7f22f56cb7516119ee9a01a0aab36ea83a5d3 && git log -1 && \
     ./su2AdapterInstall
 
 WORKDIR /home/precice/su2-source
