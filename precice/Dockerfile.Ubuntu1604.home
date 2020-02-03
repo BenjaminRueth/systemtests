@@ -56,7 +56,7 @@ ENV CPLUS_INCLUDE_PATH="$CPLUS_INCLUDE_PATH:/usr/include/eigen3" \
 ARG branch=develop
 RUN git clone https://github.com/precice/precice.git /home/precice/precice
 WORKDIR /home/precice/precice
-RUN git checkout d9a25edb6649928f9ebdca739e9c698669387a34
+RUN git checkout 4a0c9381e1acd4566cffcecf5a8d3e3aaa1ba15f
 RUN git log -1  # shows commit hash of revision being used
 # Some parameters for the build, you can set them in the build command e.g.
 # sudo docker build Dockerfile.precice --build-arg petsc_para=yes --build-arg mpi_para=yes .
