@@ -1,4 +1,4 @@
-ARG from=precice/precice-ubuntu1604.home-develop
+ARG from=benjaminrueth/precice-ubuntu1604.home-develop
 ARG base_solver=precice/calculix
 FROM ${base_solver} as calculix
 FROM $from
