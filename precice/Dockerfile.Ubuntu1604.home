@@ -66,9 +66,13 @@ WORKDIR /home/precice
 
 # Setting some environment variables for installing preCICE
 ENV CPLUS_INCLUDE_PATH="$CPLUS_INCLUDE_PATH:/usr/include/eigen3" \
-    CPATH="/usr/include/eigen3:${CPATH}" \
-    PETSC_DIR="/usr/lib/petscdir/3.6.2/" \
-    PETSC_ARCH="x86_64-linux-gnu-real"
+    CPATH="/usr/include/eigen3:${CPATH}"
+
+ENV LD_LIBRARY_PATH=$PETSC_DIR/$PETSC_ARCH/lib:$LD_LIBRARY_PATH
+ENV CPATH=$PETSC_DIR/include:$PETSC_DIR/$PETSC_ARCH/include:$CPATH
+ENV LIBRARY_PATH=$PETSC_DIR/$PETSC_ARCH/lib:$LIBRARY_PATH
+ENV PYTHONPATH=$PETSC_DIR/$PETSC_ARCH/lib
+    
 
 # Building preCICE
 ARG branch=develop
