@@ -7,7 +7,6 @@ FROM ubuntu:16.04
 RUN apt-get -qq update && apt-get -qq install \
     build-essential \
     libxml2-dev \
-    petsc-dev \
     git \
     python-numpy \
     python-dev \
@@ -15,6 +14,25 @@ RUN apt-get -qq update && apt-get -qq install \
     pkg-config \    
     bzip2 && \
     rm -rf /var/lib/apt/lists/*
+
+# Installing PETSc
+
+# Download
+WORKDIR /petsc-build
+RUN git clone -b maint https://gitlab.com/petsc/petsc 
+
+RUN apt-get -qq update && apt-get -qq install \
+    gfortran \
+    valgrind \
+    libopenmpi-dev && \
+    rm -rf /var/lib/apt/lists/*
+
+# Configure and compile
+WORKDIR /petsc-build/petsc
+ENV PETSC_ARCH=arch-linux2-c-debug
+ENV PETSC_DIR=/petsc-build/petsc
+RUN python2 configure --with-debugging=1 --with-64-bit-indices --download-fblaslapack=1
+RUN make all test
 
 # Installing cmake
 WORKDIR /cmake
