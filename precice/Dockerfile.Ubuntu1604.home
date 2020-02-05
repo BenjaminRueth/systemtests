@@ -12,6 +12,9 @@ RUN apt-get -qq update && apt-get -qq install \
     python-dev \
     wget \
     pkg-config \    
+    gfortran \
+    valgrind \
+    libopenmpi-dev \
     bzip2 && \
     rm -rf /var/lib/apt/lists/*
 
@@ -20,13 +23,6 @@ RUN apt-get -qq update && apt-get -qq install \
 # Download
 WORKDIR /petsc-build
 RUN git clone -b maint https://gitlab.com/petsc/petsc 
-
-RUN apt-get -qq update && apt-get -qq install \
-    gfortran \
-    valgrind \
-    libopenmpi-dev && \
-    rm -rf /var/lib/apt/lists/*
-
 # Configure and compile
 WORKDIR /petsc-build/petsc
 ENV PETSC_ARCH=arch-linux2-c-debug
@@ -66,12 +62,11 @@ WORKDIR /home/precice
 
 # Setting some environment variables for installing preCICE
 ENV CPLUS_INCLUDE_PATH="$CPLUS_INCLUDE_PATH:/usr/include/eigen3" \
-    CPATH="/usr/include/eigen3:${CPATH}"
-
-ENV LD_LIBRARY_PATH=$PETSC_DIR/$PETSC_ARCH/lib:$LD_LIBRARY_PATH
-ENV CPATH=$PETSC_DIR/include:$PETSC_DIR/$PETSC_ARCH/include:$CPATH
-ENV LIBRARY_PATH=$PETSC_DIR/$PETSC_ARCH/lib:$LIBRARY_PATH
-ENV PYTHONPATH=$PETSC_DIR/$PETSC_ARCH/lib
+    CPATH="/usr/include/eigen3:${CPATH}" \
+    LD_LIBRARY_PATH=$PETSC_DIR/$PETSC_ARCH/lib:$LD_LIBRARY_PATH \
+    CPATH=$PETSC_DIR/include:$PETSC_DIR/$PETSC_ARCH/include:$CPATH \
+    LIBRARY_PATH=$PETSC_DIR/$PETSC_ARCH/lib:$LIBRARY_PATH \
+    PYTHONPATH=$PETSC_DIR/$PETSC_ARCH/lib
     
 
 # Building preCICE
